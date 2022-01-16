@@ -2,16 +2,11 @@
 """
 Created on Tue Mar 23 00:26:45 2021
 
-@author: ASUS
 """
 import pandas as pd
 import numpy as np
 
-anpr_df = pd.read_csv(
-                      'D:/University related/Memarnezhad/OD_prediction/data'\
-                      '/final_data/ANPR_data/mir98s3/ANPR_data_93_new_sum.csv'
-                      
-                      )
+anpr_df = pd.read_csv('ANPR_data_93_new_sum.csv')
 
 # Jalali to gregorian. this way calculation is way easier    
 def jalali_to_gregorian(jy, jm, jd):
@@ -117,12 +112,12 @@ anpr_df = anpr_df.groupby(['zone_93', 'time'])['count'].mean().reset_index()
 anpr_df.zone_93.replace(0, np.nan, inplace=True)
 anpr_df.dropna(inplace=True)
 
-anpr_df.to_csv('D:/University related/Memarnezhad/OD_prediction/code/anpr/anpr.csv')
+anpr_df.to_csv('anpr.csv')
 
 anpr_sum = anpr_df.groupby(['time'] )['count'].sum()
 anpr_sum = pd.DataFrame({'time': anpr_sum.index, 'sum_count_anpr':anpr_sum.values})
 
-anpr_sum.to_csv('D:/University related/Memarnezhad/OD_prediction/code/Models/anpr_sum_systemkey.csv' ,index=False)
+anpr_sum.to_csv('anpr_sum_systemkey.csv' ,index=False)
 
 
 """
@@ -143,8 +138,7 @@ for i in range (1, 4):
     i = str(i) # Change to string so that can be concatenated
     # Import the TAZ stations' entry count
     entry_df_x = pd.read_csv(
-        'D:/University related/Memarnezhad/OD_prediction' \
-        '/data/final_data/AVL_data/98fal'+ i +'/zone_93_entry.csv',
+        './98fal'+ i +'/zone_93_entry.csv',
         index_col=0
         )
     if len(entry_df) == 0:
@@ -154,8 +148,7 @@ for i in range (1, 4):
             
     # Import the TAZ stations' exit count
     exit_df_x = pd.read_csv(
-        'D:/University related/Memarnezhad/OD_prediction' \
-        '/data/final_data/AVL_data/98fal'+ i +'/zone_93_exit.csv',
+        './98fal'+ i +'/zone_93_exit.csv',
         index_col=0
         )
         
@@ -224,8 +217,8 @@ exit_df = exit_df.query('date < @start_remove_2 or date > @end_remove_2')
 entry_df = entry_df.groupby(['zone_93', 'time'])['count'].mean().reset_index()
 exit_df = exit_df.groupby(['zone_93', 'time'])['count'].mean().reset_index()
 
-entry_df.to_csv('D:/University related/Memarnezhad/OD_prediction/code/avl/avl_entry.csv')
-exit_df.to_csv('D:/University related/Memarnezhad/OD_prediction/code/avl/avl_exit.csv')
+entry_df.to_csv('avl_entry.csv')
+exit_df.to_csv('avl_exit.csv')
 
 avl_en_sum = entry_df.groupby(['time'] )['count'].sum()
 avl_en_sum = pd.DataFrame({'time': avl_en_sum.index, 'sum_count_avl_en':avl_en_sum.values})
@@ -278,8 +271,7 @@ read_list = filtered_dict['Sunday'] + filtered_dict['Monday'] + \
 n_df = pd.DataFrame()
 for i in read_list:  
     df = pd.read_csv(
-        'D:/University related/Memarnezhad/OD_prediction' \
-        '/data/final_data/Neshan/Final_OD_Hourly_matrix/'+ i,
+        'Neshan/Final_OD_Hourly_matrix/'+ i,
         index_col=0
         )
     if len(n_df) == 0:
@@ -293,7 +285,7 @@ n_df.rename(columns={'hour':'time', 'trip_count':'count'}, inplace=True)
 n_df = n_df.groupby(['Origin',  'Destination',  'time'])['count'].agg(['mean'])
 n_df = n_df.rename(columns={'mean':'count'}).reset_index()
 
-n_df.to_csv('D:/University related/Memarnezhad/OD_prediction/code/neshan/neshan.csv')
+n_df.to_csv('neshan/neshan.csv')
 
 
 # Put all dataframes in 2 lists, one for entry and one for exit
@@ -304,8 +296,7 @@ for i in range (1, 23):
     i = str(i) # Change to string so that can be concatenated
     # Import the TAZ stations' entry count
     df_x = pd.read_csv(
-        'D:/University related/Memarnezhad/OD_prediction' \
-        '/data/final_data/scats_data/scats_data/zone '+i+'/zone_93_scats_df.csv',
+        'scats_data/zone '+i+'/zone_93_scats_df.csv',
         usecols=cols, index_col=0
         )
     df_x.reset_index(inplace=True)
@@ -398,16 +389,14 @@ scat_df_new = scat_df_new.rename(columns={'mean':'count'}).reset_index()
 scat_df_new.replace('', np.nan, inplace=True)
 scat_df_new.dropna(inplace=True)
 
-#scat_df_new.to_csv('D:/University related/Memarnezhad/OD_prediction/code/scats/scats.csv')
+#scat_df_new.to_csv('scats.csv')
 
 
 scat_sum = scat_df_new.groupby(['time'] )['count'].sum()
 scat_sum = pd.DataFrame({'time': scat_sum.index, 'sum_count_scat':scat_sum.values})
 
-pb_df = pd.read_csv('D:/University related/Memarnezhad/OD_prediction/data'\
-                    '/final_data/OD_data/pb_df.csv')
-pv_df = pd.read_csv('D:/University related/Memarnezhad/OD_prediction/data'\
-                    '/final_data/OD_data/pv_df.csv')
+pb_df = pd.read_csv('OD_data/pb_df.csv')
+pv_df = pd.read_csv('OD_data/pv_df.csv')
 
 pb_df = pb_df[
     [
@@ -462,36 +451,28 @@ pb_df = vertical_to_horizontal(pb_df)
 pv_df.reset_index(drop=True, inplace=True)
 pb_df.reset_index(drop=True, inplace=True)
 
-pb_df.to_csv('D:/University related/Memarnezhad/OD_prediction/code/od_matrix/pb_df_hour.csv')
-pv_df.to_csv('D:/University related/Memarnezhad/OD_prediction/code/od_matrix/pv_df_hour.csv')
+pb_df.to_csv('Dod_matrix/pb_df_hour.csv')
+pv_df.to_csv('od_matrix/pv_df_hour.csv')
 
 
 from statistics import mean
 
 # Read all necessary files
-n_df = pd.read_csv('D:/University related/Memarnezhad/OD_prediction/'\
-                   'code/neshan/neshan.csv', index_col=0)# Neshan
+n_df = pd.read_csv('neshan.csv', index_col=0)# Neshan
     
-scat_df = pd.read_csv('D:/University related/Memarnezhad/OD_prediction'\
-                      '/code/scats/scats.csv', index_col=0)
+scat_df = pd.read_csv('scats.csv', index_col=0)
     
-avl_entry_df = pd.read_csv('D:/University related/Memarnezhad/OD_prediction'\
-                           '/code/avl/avl_entry.csv', index_col=0)
+avl_entry_df = pd.read_csv('avl_entry.csv', index_col=0)
     
-avl_exit_df = pd.read_csv('D:/University related/Memarnezhad/OD_prediction'\
-                          '/code/avl/avl_exit.csv', index_col=0)
+avl_exit_df = pd.read_csv('avl_exit.csv', index_col=0)
     
-anpr_df = pd.read_csv('D:/University related/Memarnezhad/OD_prediction/code'\
-                      '/anpr/anpr.csv', index_col=0)
+anpr_df = pd.read_csv('anpr.csv', index_col=0)
 
 # Tarh jameh (target value)  
-pv_df = pd.read_csv('D:/University related/Memarnezhad/OD_prediction/code'\
-                      '/od_matrix/pv_df_hour.csv', index_col=0)
-pb_df = pd.read_csv('D:/University related/Memarnezhad/OD_prediction/code'\
-                      '/od_matrix/pb_df_hour.csv', index_col=0)
+pv_df = pd.read_csv('od_matrix/pv_df_hour.csv', index_col=0)
+pb_df = pd.read_csv('od_matrix/pb_df_hour.csv', index_col=0)
 
-zone_neighbors = pd.read_excel('D:/University related/Memarnezhad/'\
-                               'OD_prediction/code/data aggregation/zone_neighbor.xls')
+zone_neighbors = pd.read_excel('data aggregation/zone_neighbor.xls')
 
 # Add zones that are not existent then put 0 az their count
 
@@ -608,8 +589,7 @@ anpr_df_nm['count'] = anpr_df_nm.apply(lambda row: cal_nan_neigh_mean(
 
 
 # TAZ features       
-taz_char = pd.read_excel('D:/University related/Memarnezhad/'\
-                               'OD_prediction/data/final_data/SE1393.xlsx')
+taz_char = pd.read_excel('SE1393.xlsx')
 # Drop unwanted columns    
 taz_char.drop(['zone', 'Norm-working', 'Nor-CarOwner'], axis=1, inplace=True)
 taz_char.rename(columns={'TAZ':'zone_93'}, inplace=True)
@@ -722,10 +702,10 @@ pv_pb_df.drop([
 
 # Save the output
 pv_pb_df_mn.to_csv(
-    'D:/University related/Memarnezhad/OD_prediction/code/data aggregation/pv_pb_df_mn.csv',
+    'data aggregation/pv_pb_df_mn.csv',
     index=False)
 pv_pb_df.to_csv(
-    'D:/University related/Memarnezhad/OD_prediction/code/data aggregation/pv_pb_df.csv',
+    'data aggregation/pv_pb_df.csv',
     index=False)
 
 
