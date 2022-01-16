@@ -59,7 +59,7 @@ history = model.fit(X_train, y_train , batch_size=1024, epochs=30, validation_da
 y_pred = (model.predict(X_test) > 0.5).astype("int32")
 print("Accuracy:",accuracy_score(y_test ,y_pred))
 
-model.save('D:/University related/Memarnezhad/OD_prediction/code/Models/trained models/od_binary/nn_binary_model.h5')
+model.save('nn_binary_model.h5')
 
 
 y = pv_pb_df_mn['count_pv_pb']
