@@ -4,8 +4,7 @@ import pandas as pd
 from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
 
-pv_pb_df_mn = pd.read_csv(
-    'D:/University related/Memarnezhad/OD_prediction/code/data aggregation/pv_pb_df.csv')
+pv_pb_df_mn = pd.read_csv(pv_pb_df.csv')
 pv_pb_df_mn.replace(-9, np.nan, inplace=True)
 # pv_pb_df_mn.dropna(inplace=True)
 
