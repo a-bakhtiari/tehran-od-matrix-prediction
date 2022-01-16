@@ -16,7 +16,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 
-pv_pb_df_mn = pd.read_csv(pv_pb_df.csv')
+pv_pb_df_mn = pd.read_csv('pv_pb_df.csv')
 
 pv_pb_df_mn.replace(-9, np.nan, inplace=True)
 pv_pb_df_mn = pv_pb_df_mn.drop(['Origin', 'Destination', 'count_pv', 'count_pb'], axis=1)
