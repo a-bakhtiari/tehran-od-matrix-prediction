@@ -15,8 +15,7 @@ from sklearn.ensemble import RandomForestRegressor
 
 
 
-pv_pb_df_mn = pd.read_csv(
-    'D:/University related/Memarnezhad/OD_prediction/code/data aggregation/pv_pb_df.csv'
+pv_pb_df_mn = pd.read_csv('pv_pb_df.csv'
     )
 
 pv_pb_df_mn.replace(-9, np.nan, inplace=True)
@@ -186,13 +185,13 @@ print('The mse of test prediction is:', mean_squared_error(y_test, y_pred_test) 
 print('The mae of  train prediction is:', mean_absolute_error(y_train, y_pred_train))#train set
 print('The mae of test prediction is:', mean_absolute_error(y_test, y_pred_test))#train set
 
-model.save('D:/University related/Memarnezhad/OD_prediction/code/Models/trained models/od_prediction/cnn_model.h5')
+model.save('cnn_model.h5')
 
 
 # # Lets add the zone clusters and see how the output differs
-# xls = pd.ExcelFile('https://www.dropbox.com/scl/fi/dnz6opfauv56bh5mzehbk/tabagheh-bandi-navahi-finall.xlsx?dl=1&rlkey=ojm36q2zbwtx31sz2zbhunuzf')
+# xls = pd.ExcelFile('tabagheh-bandi-navahi-finall.xlsx')
 # tabaghe_bandi_key = pd.read_excel(xls, 'Sheet1')
-# shardari_key = pd.read_excel('https://www.dropbox.com/scl/fi/jkcn7cv8krp257bqsawob/SE1393-TAZ-Navahi-Mantaghe.xlsx?dl=1&rlkey=pm973vqadncdguoov3lwgrt3v')
+# shardari_key = pd.read_excel('SE1393-TAZ-Navahi-Mantaghe.xlsx')
 
 # tabaghe_bandi_key.rename(columns={'ناحیه شهرداری': 'nahie_shahrdari', 'دسته بندی':'dastebandi'}, inplace=True)
 # shardari_key.rename(columns={'ناحیه شهرداری': 'nahie_shahrdari', 'ناحیه ترافیکی':'TAZ'}, inplace=True)
@@ -292,7 +291,7 @@ print('The rmse of test prediction is:', mean_squared_error(y_test, y_pred_test)
 
 
 # save model
-joblib.dump(clf, 'C:/Users/masoud_second_win/Desktop/mice imputation/lgb_hourly mean.pkl')
+joblib.dump(clf, 'lgb_hourly mean.pkl')
 
     
 
