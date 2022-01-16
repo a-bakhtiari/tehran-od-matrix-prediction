@@ -18,7 +18,8 @@ def LightGBMCallback(env):
 
 def train_breast_cancer(config):
     pv_pb_df_mn = pd.read_csv(
-        'D:/University related/Memarnezhad/OD_prediction/code/data aggregation/pv_pb_df_dp.csv')
+        'data aggregation/pv_pb_df_dp.csv'
+    )
     norm = [
         'time', 'count_neshan', 'count_scat_o', 'count_avl_en_o',
         'count_avl_ex_o', 'count_anpr_o',
